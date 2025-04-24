@@ -7,22 +7,26 @@ This is the backend for the Uber Application. It is built using Node.js, Express
 ### `/users/register`
 
 #### Description
+
 This endpoint is used to register a new user. It validates the input data, hashes the password, and stores the user in the database. Upon successful registration, it returns a JSON Web Token (JWT) and the user details.
 
 #### Method
+
 `POST`
 
 #### Request Body
+
 The request body should be in JSON format and include the following fields:
 
-| Field              | Type   | Required | Description                                |
-|--------------------|--------|----------|--------------------------------------------|
+| Field                | Type   | Required | Description                                        |
+| -------------------- | ------ | -------- | -------------------------------------------------- |
 | `fullname.firstname` | String | Yes      | The first name of the user (minimum 3 characters). |
-| `fullname.lastname`  | String | No       | The last name of the user (minimum 3 characters). |
-| `email`             | String | Yes      | The email address of the user (must be valid). |
-| `password`          | String | Yes      | The password for the user (minimum 6 characters). |
+| `fullname.lastname`  | String | No       | The last name of the user (minimum 3 characters).  |
+| `email`              | String | Yes      | The email address of the user (must be valid).     |
+| `password`           | String | Yes      | The password for the user (minimum 6 characters).  |
 
 #### Example Request
+
 ```json
 {
   "fullname": {
@@ -35,7 +39,9 @@ The request body should be in JSON format and include the following fields:
 ```
 
 #### Example Response
+
 On success:
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -52,6 +58,7 @@ On success:
 ```
 
 On validation error:
+
 ```json
 {
   "errors": [
@@ -70,11 +77,98 @@ On validation error:
 ```
 
 On server error:
+
 ```json
 {
   "error": "An unexpected error occurred"
 }
 ```
+
+---
+
+### `/users/login`
+
+#### Description
+
+This endpoint is used to authenticate a user. It validates the input data, checks the email and password, and returns a JSON Web Token (JWT) along with the user details if the credentials are valid.
+
+#### Method
+
+`POST`
+
+#### Request Body
+
+The request body should be in JSON format and include the following fields:
+
+| Field      | Type   | Required | Description                                       |
+| ---------- | ------ | -------- | ------------------------------------------------- |
+| `email`    | String | Yes      | The email address of the user (must be valid).    |
+| `password` | String | Yes      | The password for the user (minimum 6 characters). |
+
+#### Example Request
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+#### Example Response
+
+On success:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "64f8c0e5b5d6c9a1b2c3d4e5",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
+
+On validation error:
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid email format",
+      "param": "email",
+      "location": "body"
+    },
+    {
+      "msg": "Password must be at least 6 characters long",
+      "param": "password",
+      "location": "body"
+    }
+  ]
+}
+```
+
+On invalid credentials:
+
+```json
+{
+  "error": "Invalid email or password"
+}
+```
+
+On server error:
+
+```json
+{
+  "error": "An unexpected error occurred"
+}
+```
+
+---
 
 ## Setup Instructions
 
