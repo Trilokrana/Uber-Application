@@ -170,6 +170,98 @@ On server error:
 
 ---
 
+### `/users/profile`
+
+#### Description
+
+This endpoint is used to retrieve the profile of the authenticated user. It requires a valid JWT token to access.
+
+#### Method
+
+`GET`
+
+#### Headers
+
+| Header          | Value          | Required | Description                |
+| --------------- | -------------- | -------- | -------------------------- |
+| `Authorization` | `Bearer <JWT>` | Yes      | The JWT token of the user. |
+
+#### Example Request
+
+```http
+GET /users/profile HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+#### Example Response
+
+On success:
+
+```json
+{
+  "_id": "64f8c0e5b5d6c9a1b2c3d4e5",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "socketId": null
+}
+```
+
+On unauthorized access:
+
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+---
+
+### `/users/logout`
+
+#### Description
+
+This endpoint is used to log out the user. It clears the JWT token from cookies and blacklists the token to prevent further use.
+
+#### Method
+
+`GET`
+
+#### Headers
+
+| Header          | Value          | Required | Description                                                |
+| --------------- | -------------- | -------- | ---------------------------------------------------------- |
+| `Authorization` | `Bearer <JWT>` | No       | The JWT token of the user (optional if stored in cookies). |
+
+#### Example Request
+
+```http
+GET /users/logout HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+#### Example Response
+
+On success:
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+On server error:
+
+```json
+{
+  "error": "An unexpected error occurred"
+}
+```
+
+---
+
 ## Setup Instructions
 
 1. Clone the repository.
