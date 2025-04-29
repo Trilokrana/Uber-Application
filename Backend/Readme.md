@@ -262,6 +262,115 @@ On server error:
 
 ---
 
+
+
+## Endpoints
+
+### `/captains/register`
+
+#### Description
+
+This endpoint is used to register a new captain. It validates the input data, hashes the password, and stores the captain in the database. Upon successful registration, it returns a JSON Web Token (JWT) and the captain details.
+
+#### Method
+
+`POST`
+
+#### Request Body
+
+The request body should be in JSON format and include the following fields:
+
+| Field                          | Type   | Required | Description                                        |
+| ------------------------------ | ------ | -------- | -------------------------------------------------- |
+| `fullname.firstname`           | String | Yes      | The first name of the captain (minimum 3 characters). |
+| `fullname.lastname`            | String | No       | The last name of the captain (minimum 3 characters). |
+| `email`                        | String | Yes      | The email address of the captain (must be valid).     |
+| `password`                     | String | Yes      | The password for the captain (minimum 6 characters).  |
+| `vehicle.color`                | String | Yes      | The color of the vehicle (minimum 3 characters).      |
+| `vehicle.plate`                | String | Yes      | The license plate of the vehicle (minimum 3 characters). |
+| `vehicle.capacity`             | Number | Yes      | The capacity of the vehicle (minimum 1).              |
+| `vehicle.vehicleType`          | String | Yes      | The type of the vehicle (`car`, `motorcycle`, or `auto`). |
+| `vehicle.location.lat`         | Number | Yes      | The latitude of the vehicle's location.               |
+| `vehicle.location.lng`         | Number | Yes      | The longitude of the vehicle's location.              |
+
+#### Example Request
+
+```json
+{
+  "fullname": {
+    "firstname": "Vijay",
+    "lastname": "Singh"
+  },
+  "email": "vijay@gmail.com",
+  "password": "vijay@1234",
+  "vehicle": {
+    "color": "Red",
+    "plate": "UK1078521",
+    "capacity": 6,
+    "vehicleType": "car",
+    "location": {
+      "lat": 12.971598,
+      "lng": 77.594566
+    }
+  }
+}
+```
+
+#### Example Response
+
+On success:
+
+```json
+{
+  "captain": {
+    "_id": "64f8c0e5b5d6c9a1b2c3d4e5",
+    "fullname": {
+      "firstname": "Vijay",
+      "lastname": "Singh"
+    },
+    "email": "vijay@gmail.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "UK1078521",
+      "capacity": 6,
+      "vehicleType": "car",
+      "location": {
+        "lat": 12.971598,
+        "lng": 77.594566
+      }
+    },
+    "status": "inactive"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+On validation error:
+
+```json
+{
+  "errors": [
+    {
+      "msg": "First name must be at least 3 characters long",
+      "param": "fullname.firstname",
+      "location": "body"
+    },
+    {
+      "msg": "Invalid email format",
+      "param": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+On server error:
+
+```json
+{
+  "message": "An unexpected error occurred"
+}
+
 ## Setup Instructions
 
 1. Clone the repository.
