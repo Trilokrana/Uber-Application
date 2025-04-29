@@ -460,7 +460,7 @@ This endpoint is used to retrieve the profile of the authenticated captain. It r
 #### Example Request
 
 ```http
-GET /captains/profile HTTP/1.1
+GET /captain/profile HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
@@ -519,7 +519,7 @@ This endpoint is used to log out the captain. It clears the JWT token from cooki
 #### Example Request
 
 ```http
-GET /captains/logout HTTP/1.1
+GET /captain/logout HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
