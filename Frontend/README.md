@@ -78,7 +78,7 @@ Follow these steps to set up and run the frontend of the Uber Application:
 Clone the repository to your local machine using the following command:
 
 ```bash
-git clone <[repository-url](https://github.com/Trilokrana/Uber-Application.git)>
+git clone https://github.com/Trilokrana/Uber-Application.git
 ```
 
 Navigate to the Frontend Directory
